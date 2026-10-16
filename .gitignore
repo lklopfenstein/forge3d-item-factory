@@ -1,0 +1,7 @@
+__pycache__/
+*.pyc
+output/*
+!output/.gitkeep
+*.blend1
+.DS_Store
+site-deploy.tar.gz

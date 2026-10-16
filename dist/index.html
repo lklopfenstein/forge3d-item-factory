@@ -1,0 +1,196 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="description" content="A free, offline-first Blender item factory for editable game assets." />
+    <meta name="theme-color" content="#080c11" />
+    <title>Forge3D — Free Item Factory</title>
+    <link rel="icon" href="assets/forge-mark.svg" type="image/svg+xml" />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <a class="skip-link" href="#factory">Skip to factory</a>
+    <header class="topbar">
+      <a class="brand" href="#" aria-label="Forge3D home">
+        <img src="assets/forge-mark.svg" alt="" width="34" height="34" />
+        <span>FORGE<em>3D</em></span>
+      </a>
+      <div class="project-chip"><span class="pulse"></span> LOCAL CORE · $0 FOREVER</div>
+      <nav aria-label="Primary">
+        <a href="#factory">Factory</a>
+        <a href="#pipeline">Pipeline</a>
+        <a href="#freedom">License</a>
+      </nav>
+      <a class="button button-small button-ghost" href="downloads/forge3d-windows-starter.zip" download>Get Windows kit <span>↓</span></a>
+    </header>
+
+    <main>
+      <section class="hero" aria-labelledby="hero-title">
+        <div class="eyebrow"><span>001</span> PROCEDURAL ARMORY</div>
+        <h1 id="hero-title">Build the impossible.<br /><i>Own every vertex.</i></h1>
+        <p>Describe an original game item. Forge3D turns the idea into an editable Blender Python recipe, then your own PC makes the model, colorways, previews, QA report, GLB, and FBX.</p>
+        <div class="hero-actions">
+          <a class="button button-primary" href="#factory">Open the factory <span>↘</span></a>
+          <span class="microcopy">No login · no API key · no upload</span>
+        </div>
+        <div class="hero-specs" aria-label="Project specifications">
+          <div><b>01</b><span>Python + Blender</span></div>
+          <div><b>02</b><span>Windows local runner</span></div>
+          <div><b>03</b><span>CC0 source</span></div>
+          <div><b>04</b><span>GLB + FBX</span></div>
+        </div>
+      </section>
+
+      <section class="factory-shell" id="factory" aria-label="3D item factory">
+        <div class="factory-titlebar">
+          <div>
+            <span class="section-kicker">ACTIVE BLUEPRINT</span>
+            <h2>AEGIS—01 / FUTURE HELMET</h2>
+          </div>
+          <div class="factory-status"><span></span> RECIPE READY</div>
+        </div>
+
+        <div class="factory-grid">
+          <aside class="brief-panel panel">
+            <div class="panel-heading"><span>01</span><h3>Describe it</h3></div>
+            <label for="itemPrompt">Original item brief</label>
+            <textarea id="itemPrompt" rows="7" spellcheck="true">A futuristic football helmet with an aerodynamic shell, smoked visor, luminous vents, and a protective titanium face cage.</textarea>
+            <div class="prompt-examples" aria-label="Prompt additions">
+              <button type="button" data-prompt="stealth black shell">+ stealth</button>
+              <button type="button" data-prompt="glacier blue colorway">+ glacier</button>
+              <button type="button" data-prompt="low-poly game ready">+ low-poly</button>
+            </div>
+            <button class="button button-primary button-wide" id="generateButton" type="button">Generate recipe <span>↗</span></button>
+
+            <div class="control-block">
+              <div class="control-row">
+                <label for="detailRange">Geometry detail</label>
+                <output id="detailValue" for="detailRange">72%</output>
+              </div>
+              <input id="detailRange" type="range" min="20" max="100" value="72" />
+            </div>
+
+            <fieldset class="toggles">
+              <legend>Modules</legend>
+              <label><input id="visorToggle" type="checkbox" checked /><span></span> Smoked visor</label>
+              <label><input id="cageToggle" type="checkbox" checked /><span></span> Face cage</label>
+              <label><input id="ventsToggle" type="checkbox" checked /><span></span> Luminous vents</label>
+            </fieldset>
+
+            <div class="import-block">
+              <div class="control-row"><label for="importPath">Merge an external model</label><span>OPTIONAL</span></div>
+              <input id="importPath" type="text" placeholder="C:\Users\you\Downloads\model.glb" />
+              <p>Paste the full path to a downloaded GLB, GLTF, FBX, or OBJ. The file stays on your PC.</p>
+            </div>
+          </aside>
+
+          <section class="viewport-panel panel" aria-label="Interactive concept preview">
+            <div class="viewport-toolbar">
+              <span>CONCEPT VIEW // NOT FINAL MESH</span>
+              <div class="view-buttons" role="group" aria-label="Preview angle">
+                <button type="button" data-view="front">FRONT</button>
+                <button type="button" data-view="side">SIDE</button>
+                <button class="active" type="button" data-view="iso">ISO</button>
+              </div>
+            </div>
+            <div class="canvas-wrap">
+              <canvas id="helmetCanvas" width="960" height="720" aria-label="Stylized preview of a futuristic football helmet"></canvas>
+              <div class="axis-label axis-y">Y</div>
+              <div class="axis-label axis-x">X</div>
+              <div class="viewport-note"><span>↔</span> DRAG TO ORBIT</div>
+              <div class="viewport-readout">
+                <span>PROFILE</span><b id="profileReadout">AERO—72</b>
+              </div>
+            </div>
+            <div class="colorway-strip">
+              <div class="strip-title"><span>COLORWAYS</span><small>click to apply</small></div>
+              <div id="colorwayList" class="colorway-list"></div>
+              <button id="addColorway" class="add-color" type="button" aria-label="Add colorway">+</button>
+            </div>
+          </section>
+
+          <aside class="output-panel panel">
+            <div class="tab-list" role="tablist" aria-label="Output panels">
+              <button id="tab-build" role="tab" aria-selected="true" aria-controls="panel-build">BUILD</button>
+              <button id="tab-script" role="tab" aria-selected="false" aria-controls="panel-script">SCRIPT</button>
+              <button id="tab-qa" role="tab" aria-selected="false" aria-controls="panel-qa">QA</button>
+            </div>
+
+            <div id="panel-build" class="tab-panel active" role="tabpanel" aria-labelledby="tab-build">
+              <div class="build-summary">
+                <div class="item-icon">H—01</div>
+                <div><span>PROCEDURAL TEMPLATE</span><h3>Futuristic football helmet</h3><p>12 named components · editable modifiers</p></div>
+              </div>
+              <dl class="metrics">
+                <div><dt>Est. triangles</dt><dd id="triangleMetric">26,800</dd></div>
+                <div><dt>Material slots</dt><dd>5</dd></div>
+                <div><dt>Output scale</dt><dd>Metric</dd></div>
+                <div><dt>Render engine</dt><dd>EEVEE</dd></div>
+              </dl>
+
+              <div class="export-stack">
+                <button id="localBuildButton" class="button button-primary button-wide" type="button">Build with local Blender <span>⚡</span></button>
+                <div id="localStatus" class="local-status" aria-live="polite">Open the Windows kit locally to enable one-click Blender builds.</div>
+                <div id="artifactLinks" class="artifact-links"></div>
+                <button id="downloadScript" class="button button-outline button-wide" type="button">Download editable .py <span>↓</span></button>
+                <button id="downloadRecipe" class="button button-outline button-wide" type="button">Download recipe .json <span>↓</span></button>
+              </div>
+              <div class="output-note"><span>LOCAL</span><p>Blender does the heavy work on your GPU/CPU. The hosted interface only creates files for you to download.</p></div>
+            </div>
+
+            <div id="panel-script" class="tab-panel" role="tabpanel" aria-labelledby="tab-script" hidden>
+              <div class="code-header"><span>forge3d_helmet.py</span><button id="copyScript" type="button">COPY</button></div>
+              <pre class="code-preview"><code id="scriptPreview">Loading editable Blender script…</code></pre>
+              <p class="code-caption">The downloaded file contains the full generator—not a locked binary. Change any dimension, material, or export step.</p>
+            </div>
+
+            <div id="panel-qa" class="tab-panel" role="tabpanel" aria-labelledby="tab-qa" hidden>
+              <div class="qa-score"><strong id="qaScore">5/5</strong><span>PRE-FLIGHT CHECKS</span></div>
+              <ul class="qa-list" id="qaList"></ul>
+              <p class="qa-caption">Blender performs the final topology and export checks after geometry is built, then writes <code>qa_report.json</code>.</p>
+            </div>
+          </aside>
+        </div>
+      </section>
+
+      <section class="pipeline" id="pipeline" aria-labelledby="pipeline-title">
+        <div class="section-intro">
+          <span class="section-kicker">THE LOCAL PIPELINE</span>
+          <h2 id="pipeline-title">One brief in.<br />A whole asset pack out.</h2>
+          <p>The browser handles choices. Blender handles geometry. Every stage stays inspectable and replaceable.</p>
+        </div>
+        <ol class="pipeline-steps">
+          <li><span>01</span><div><b>Describe</b><p>Start with natural language, then tune explicit parameters.</p></div></li>
+          <li><span>02</span><div><b>Generate</b><p>Download a standalone Python script and JSON recipe.</p></div></li>
+          <li><span>03</span><div><b>Forge locally</b><p>Blender constructs named geometry, materials, and colorways.</p></div></li>
+          <li><span>04</span><div><b>Ship</b><p>Receive .blend, GLB, FBX, preview PNGs, and QA JSON.</p></div></li>
+        </ol>
+      </section>
+
+      <section class="freedom" id="freedom" aria-labelledby="freedom-title">
+        <div class="freedom-stamp" aria-hidden="true"><span>$0</span><small>CORE COST<br />FOREVER</small></div>
+        <div>
+          <span class="section-kicker">THE FREEDOM CONTRACT</span>
+          <h2 id="freedom-title">No meter running.<br />No platform lock-in.</h2>
+        </div>
+        <ul>
+          <li><b>No paid inference</b><span>Rule-based recipes run in the browser.</span></li>
+          <li><b>No required hosting</b><span>Use the local Windows server completely offline.</span></li>
+          <li><b>No API keys</b><span>Blender, Python, and the web app are enough.</span></li>
+          <li><b>CC0 source</b><span>Fork it, remix it, or ship it commercially.</span></li>
+        </ul>
+      </section>
+    </main>
+
+    <footer>
+      <a class="brand footer-brand" href="#"><img src="assets/forge-mark.svg" alt="" width="30" height="30" /><span>FORGE<em>3D</em></span></a>
+      <p>OPEN TOOLING FOR ORIGINAL GAME ASSETS</p>
+      <div><span>PYTHON</span><span>BLENDER</span><span>WEB</span><span>CC0</span></div>
+    </footer>
+
+    <div id="toast" class="toast" role="status" aria-live="polite"></div>
+    <script src="generator-core.js"></script>
+    <script src="app.js"></script>
+  </body>
+</html>

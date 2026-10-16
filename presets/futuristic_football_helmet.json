@@ -1,0 +1,33 @@
+{
+  "name": "Aegis-01 Futuristic Football Helmet",
+  "prompt": "A futuristic football helmet with an aerodynamic shell, smoked visor, luminous vents, and a protective titanium face cage.",
+  "template": "futuristic_football_helmet",
+  "detail": 0.72,
+  "shell_profile": "aero",
+  "visor": true,
+  "face_cage": true,
+  "luminous_vents": true,
+  "import_path": "",
+  "poly_budget": 80000,
+  "render_size": 720,
+  "colorways": [
+    {
+      "name": "Ion Lime",
+      "primary": "#A6FF00",
+      "secondary": "#10151B",
+      "accent": "#E8FFF0"
+    },
+    {
+      "name": "Plasma Coral",
+      "primary": "#FF5F57",
+      "secondary": "#1B1024",
+      "accent": "#FFB347"
+    },
+    {
+      "name": "Glacier",
+      "primary": "#D8F7FF",
+      "secondary": "#16344A",
+      "accent": "#51D6FF"
+    }
+  ]
+}
